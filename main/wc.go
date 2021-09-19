@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 // our simplified version of MapReduce does not supply a
@@ -18,8 +19,17 @@ func Map(value string) *list.List {
 	res := list.New()              //explicitly return res
 	words := strings.Fields(value) //split the words from value
 	for _, w := range words {
-		kv := mapreduce.KeyValue{w, ""} //make KeyValue pairs
-		res.PushBack(kv)
+		var str []string
+		for _, i := range w {
+			if unicode.IsLetter(i) {
+				str = append(str, string(i))
+			}
+		}
+		x := strings.Join(str, "")
+		if x != "" {
+			kv := mapreduce.KeyValue{x, ""} //make KeyValue pairs
+			res.PushBack(kv)
+		}
 	}
 	return res
 }

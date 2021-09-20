@@ -38,11 +38,7 @@ func Map(value string) *list.List {
 // of that key's string value. should return a single
 // output value for that key.
 func Reduce(key string, values *list.List) string {
-	n := 0
-	for e := values.Front(); e != nil; e = e.Next() {
-		n += 1
-	}
-	return strconv.Itoa(n)
+	return strconv.Itoa(values.Len())
 }
 
 // Can be run in 3 ways:
